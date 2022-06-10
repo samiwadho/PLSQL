@@ -79,3 +79,146 @@ v_num:=42;
 :g_char :=v_char;
 :g_num :=v_num;
 END;
+
+
+
+                 Practice : 02
+         Write Executable Statements
+PL/SQL BLOCK
+DECLARE 
+v_weight NUMBER(3) :600;
+v_message VARCHAR2(255) := ‘product 10012’;
+BEGIN
+DECLARE
+v_weight NUMBER(3) :=1;
+v_message VARCHAR2(255) :=’product 11001’;
+v_new_icon VARCHAR2(50) := ‘Eutope’;
+BEGIN
+v_weight :=v_weight+1;
+v_new_icon := ‘Western’ || v_new_icon;
+END;
+v_weight :=v_weight+1;
+v_message :=‘Western’ || ‘ is in stock’;
+v_new_icon := ‘Western’ || v_new_icon;
+END;
+
+1. Evaluate the PL/SQL block above and determine the data type and 
+values of each of the following variables according to the rules of 
+scoping.
+
+Answer
+a. The value of V_WEIGHT at the position 1 is.
+
+2 THE data type is NUMBER
+b. The value of V_NEW_LOC at position 1 is .
+Western Europe The data type is VARCHAR2
+
+c. The value of V_WEIGHT at position 2 is .
+601 The data type is NUMBER
+
+d. The value of V_MESSAGE at position 2 is.
+Product 10012 is in Stock The data type is VARCHAR2 
+
+e. The value of V_NEW_LOC at position 2 is.
+Illegal Becausev_new_loc is not visible outside the block.
+
+2. Scope Example 
+DECLARE
+v_customer VARCHAR2(50) := ‘Womansport’;
+v_credit_rating VARCHAR2(50) := ‘ EXCELLENT’;
+BEGIN
+DECLARE
+v_customer NUMBER(7):=201;
+v_name VARCHAR2(25) := ‘Unisport’;
+BEGIN
+v_customerv_name v_credit_rating
+END;
+v_customerv_name v_credit_rating
+END;
+
+Answer
+Suppose you embed a subblock within a block as shown 
+above. You declare two variables V_CUSTOMER and 
+V_CREDIT_RATING, in the main block. You also declare two 
+variables V_CUSTOMER and V_NAME, in the subblock. 
+Determine the values and data types for each of the 
+following cases.
+
+a. The value of V_CUSTOMER in the subblock is.
+201 the data type is NUMBER 
+
+b. The value of V_NAME in the subblock is.
+UNISPORT and 
+The data type is VARCHAR2 
+
+c. The value of V_CREDIT_RATING in the subblock is.
+EXCELLENGT 
+The data type is VARCHAR2
+
+d. The value of V_CUSTOMER in the block is.
+Womansport the data type is VARCHAR2
+
+e. The value of V_NAME in the block is.
+V_NAME is not visible in the main block and you 
+would see an erroe.
+
+f. The value of V_CREDIT_RATING in the main block is.
+EXCELLENT The data type is VARCHAR2
+
+3. Createand execute a PL/SQL block that accepts two numbers through 
+iSQL*Plus substitution variables.
+(a) Use the DEFINE command to provide the two values.
+DEFINE p_num1 =2
+DEFINE p_num2 =4 
+(b) Pass the two values defined in step a above, to the PL/SQL 
+block through iSQL*Plus substitution variables. The first 
+number should be divided by the second number and have the 
+second number added to the result should be stored in a 
+PL/SQL variable and printed on the screen.
+
+Answer 
+SET ECHO OFF 
+SET VARIFY OFF
+SET SERVEROUTPUT ON 
+DEFINE p_num1= 2
+DEFINE p_num2 =4
+DECLARE
+V_num1 NUMBER(9,2) := &p_num1;
+V_num2 NUMBER(9,3):=&p_num2;
+V_result NUMBER(9,3) ;
+BEGIN
+V_resutl := (V_num1/ V_num2) + V_num2;
+DBMS_OUTPUT.PUT_LINE(V_result);
+END;
+SET ECHO ON
+SET VARIFY ON
+SET SERVEROUTPUT OFF
+
+4. Build a PL/SQL block that computes the total compensation for one 
+year.
+a. The annual salary and the annual bonus percentage values are 
+defined using the DEFINE command.
+b. Pass the values defined in the above step to the PL/SQL block 
+through iSQl*Plus substitution variables. The bonus must be 
+converted from a whole number to a decimal. if the salary is null 
+set it zero before computing the total compensation. Execute the 
+PL/SQL block. 
+NOTE: total compensation is the sum of the annual salary and 
+annual bonus.
+To test the NVL function, set the DEFINE variable equal to NULL.
+
+Answer
+DEFINE p_salary = 5000
+DEFINE p_bonus= 10
+SET VARIFY OFF
+SET SERVEROUTPUT ON 
+DEFINE p_salary =5000
+DEFINE p_bonus =10
+DECLARE
+V_salaryNUMBER :=&p_salary;
+V_bonusNUMBER :=&p_bonus;
+BEGIN
+Dbms_output.put_line (TO_CHAR(NVL (v_salary,0)*(1+NVL (V_bonus,0)/10)));
+END;
+SET VARIFY ON
+SET SERVEROUTPUT OFF 

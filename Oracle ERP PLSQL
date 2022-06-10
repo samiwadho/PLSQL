@@ -1,0 +1,81 @@
+                      Practice 01
+                  Declaring Variables
+1. Evaluate each of the following declarations. Which of them are not legal 
+and explain why.
+
+Answer
+a. DECLARE 
+V_id NUMBER(4);
+Legal
+
+b. DECLARE 
+V_x ,v_y , v_z VARCHAR2(10);
+Illegal Because only one identifier per declaration is 
+allowed.
+
+c. DECLARE
+V_birthdate DATE NOT NULL;
+Illegal Because the NOT NULL variable must be initialized .
+
+d. DECLARE 
+V_in_stock BOOLEAN :=1;
+Illegal Because 1 is not a BOOLEAN Expression.
+
+2. In each of the following assignments, indicates whether the statement is 
+valid and what the valid data type of the result will be .
+
+Answer
+a. V_days_to_go := v_due_date – SYSDATE;
+Valid ; NUMBER
+
+b. V_sender := USER || ‘ : ‘|| TO_CHAR(v_dept_no);
+Valid ; Character String
+
+c. v_sum := $100,000+$250,000;
+illegal ; PL / SQL can not convert special symbols from 
+VARCHAR2 to NUMBER
+
+d. v_flag := TRUE; 
+Valid : BOOLEAN
+
+e. v_nl := v_n2> (2* v_n3);
+Valid ; BOOLEAN
+
+f. v_value := NULL;
+Valid ; any scalar data type.
+
+3. Create a anonymous block to output the phrase 
+“My PL/SQL Block Works” to screen.
+
+Answer
+VARIABLE g_message VARCHAR2(40);
+DECLARE 
+v_message VARCHAR2(40);
+BEGIN 
+v_message := 'MY PL/SQL Block Works';
+:g_message := v_message;
+END;
+
+
+4. Create a block that declares two variables. Assign the values of these 
+PL/SQL variables to iSQL*Plus host variables and print the result of the 
+PL/SQL variables to the screen.
+V_CHAR Character (variable length)
+V_NUM Number
+Assign values to these variables as followes
+Variable values
+V_CHAR The literal ’42 is the answer’
+V_NUM The first two Characters from V_CHAR
+
+Answer:
+VARIABLE g_char VARCHAR2(40)
+VARIABLE g_num NUMBER
+DECLARE 
+v_char VARCHAR2(40);
+v_num NUMBER (10,2);
+BEGIN
+v_char := ’42 is the answer’;
+v_num:=42;
+:g_char :=v_char;
+:g_num :=v_num;
+END;

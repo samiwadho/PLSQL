@@ -1,6 +1,6 @@
                       Practice 01
                   Declaring Variables
-1. Evaluate each of the following declarations. Which of them are not legal 
+Q1. Evaluate each of the following declarations. Which of them are not legal 
 and explain why.
 
 Answer
@@ -21,7 +21,7 @@ d. DECLARE
 V_in_stock BOOLEAN :=1;
 Illegal Because 1 is not a BOOLEAN Expression.
 
-2. In each of the following assignments, indicates whether the statement is 
+Q2. In each of the following assignments, indicates whether the statement is 
 valid and what the valid data type of the result will be .
 
 Answer
@@ -44,7 +44,7 @@ Valid ; BOOLEAN
 f. v_value := NULL;
 Valid ; any scalar data type.
 
-3. Create a anonymous block to output the phrase 
+Q3. Create a anonymous block to output the phrase 
 “My PL/SQL Block Works” to screen.
 
 Answer
@@ -57,7 +57,7 @@ v_message := 'MY PL/SQL Block Works';
 END;
 
 
-4. Create a block that declares two variables. Assign the values of these 
+Q4. Create a block that declares two variables. Assign the values of these 
 PL/SQL variables to iSQL*Plus host variables and print the result of the 
 PL/SQL variables to the screen.
 V_CHAR Character (variable length)
@@ -102,7 +102,7 @@ v_message :=‘Western’ || ‘ is in stock’;
 v_new_icon := ‘Western’ || v_new_icon;
 END;
 
-1. Evaluate the PL/SQL block above and determine the data type and 
+Q1. Evaluate the PL/SQL block above and determine the data type and 
 values of each of the following variables according to the rules of 
 scoping.
 
@@ -122,7 +122,7 @@ Product 10012 is in Stock The data type is VARCHAR2
 e. The value of V_NEW_LOC at position 2 is.
 Illegal Becausev_new_loc is not visible outside the block.
 
-2. Scope Example 
+Q2. Scope Example 
 DECLARE
 v_customer VARCHAR2(50) := ‘Womansport’;
 v_credit_rating VARCHAR2(50) := ‘ EXCELLENT’;
@@ -165,7 +165,7 @@ would see an erroe.
 f. The value of V_CREDIT_RATING in the main block is.
 EXCELLENT The data type is VARCHAR2
 
-3. Createand execute a PL/SQL block that accepts two numbers through 
+Q3. Createand execute a PL/SQL block that accepts two numbers through 
 iSQL*Plus substitution variables.
 (a) Use the DEFINE command to provide the two values.
 DEFINE p_num1 =2
@@ -197,7 +197,7 @@ SET ECHO ON
 SET VARIFY ON
 SET SERVEROUTPUT OFF
 
-4. Build a PL/SQL block that computes the total compensation for one 
+Q4. Build a PL/SQL block that computes the total compensation for one 
 year.
 a. The annual salary and the annual bonus percentage values are 
 defined using the DEFINE command.
@@ -253,6 +253,7 @@ department into the DEPARTMENTS table. Save the PL/SQL block in a file
 named plsql2.sql. by clicking the save script button.
 a. Use the DEFINE command to provide the department name. name 
 the new department EDUCATION.
+
 b. Pass the values defined for the department name to the PL/SQL 
 block through aiSQL*Plus substitution variables. Rather than 
 printing the department number retrieved from exercise 1 add 10 

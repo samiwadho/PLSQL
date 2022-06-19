@@ -287,3 +287,39 @@ SELECT *
 FROM departments
 WHERE department_name ='EDUCATION';
 
+
+Q3. Create a PL/SQL block that updates the location ID for the new 
+department that you added in the previous practice. Save your PL/SQL 
+block in a file named plsql3.sql. bu clicking the save script button.
+
+a. Use an Isql*Plus variable for the department ID number that you added 
+in the previous practice.
+
+b. Use the DEFINE command to provide the location ID.name the new 
+location ID 1700. 
+DEFINE p_deptno=280
+DEFINE p_loc =1700
+
+c. Pass the value to the PL/SQL block through Isql*Plus substitution 
+
+Answer 
+
+SET VERIFY OFF
+DEFINE p_deptno=280
+DEFINE p_loc= 1700
+BEGIN 
+UPDATE departments 
+SET Location_id = &p_loc
+WHERE department_id = &p_deptno;
+COMMIT;
+END;
+/
+SET VERIFY ON
+
+d. Display the department that you updated.
+
+SELECT * 
+FROM departments
+WHERE department_id= &p_deptno;
+variable. Test the Pl/SQL block.
+

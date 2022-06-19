@@ -232,7 +232,7 @@ SET SERVEROUTPUT OFF
                          
                     Interacting With the oracle Server
                             
-1. Create a PL/SQL block that selects the maximum department number in 
+Q1. Create a PL/SQL block that selects the maximum department number in 
 the DEPARTMENTS table and stores it in an iSQL*Plus variable. Print the 
 result to the screen. Save your PL/SQL block in a file named plsql.sql. by 
 clicking the save script button.
@@ -247,3 +247,42 @@ INTO v_max_deptno
 FROM departments;
 :g_max_deptno := v_max_deptno;
 END;
+
+Q2. Modify the PL/SQL block you created in exercise 1 to insert a new 
+department into the DEPARTMENTS table. Save the PL/SQL block in a file 
+named plsql2.sql. by clicking the save script button.
+a. Use the DEFINE command to provide the department name. name 
+the new department EDUCATION.
+b. Pass the values defined for the department name to the PL/SQL 
+block through aiSQL*Plus substitution variables. Rather than 
+printing the department number retrieved from exercise 1 add 10 
+to it and use it as department number for the new department.
+
+c. Leave the location number as null for now
+
+Answer
+
+SET ECHO OFF
+SET VERIFY OFF
+DEFINE p_dname = EDUCATION
+DECLARE
+v_max_deptnodepartments.department_id%TYPE;
+BEGIN 
+SELECT max (department_id)+10
+INTO v_max_deptno
+FROM departments;
+INSERT INTO departments (department_id, department_name, location_id)
+VALUES(v_max_deptno ,'&p_dname',NULL );
+COMMIT;
+END;
+SET VERIFY ON
+SET ECHO ON
+
+d. Execute the Pl/SQL block 
+
+e. Display the new department that you created.
+
+SELECT * 
+FROM departments
+WHERE department_name ='EDUCATION';
+

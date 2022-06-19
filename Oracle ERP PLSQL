@@ -323,3 +323,33 @@ FROM departments
 WHERE department_id= &p_deptno;
 variable. Test the Pl/SQL block.
 
+
+Q4. Createa PL/SQL block that deletes the department that you created in 
+exercise 2. Save the PL/SQL block in a file named plsql3.sql .
+
+a. Use the DEFINE command to provide the department ID 
+DEFINE p_deptno= 280
+
+b. Pass the values to the PL/SQL block through aIsql*Plus substitution 
+variable. Print to the screen the number of rows affected.
+
+SET VERIFY OFF
+VARIABLE g_resultVARCHAR2(40)
+DEFINE p_deptno=280 
+DECLARE
+v_result NUMBER(2);
+BEGIN
+DELETE 
+FROM departments 
+WHERE department_id= &p_deptno;
+v_result := SQL%ROWCOUNT;
+:g_result :=(TO_CHAR(v_result)||'rows deleted.');
+COMMIT;
+END;
+PRINT g_result
+SEt VERIFY ON
+
+c. Test the PL/SQL block .
+SELECT *
+FROM departments
+WHERE department_id=280;

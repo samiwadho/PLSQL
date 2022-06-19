@@ -189,6 +189,9 @@ V_result NUMBER(9,3) ;
 BEGIN
 V_resutl := (V_num1/ V_num2) + V_num2;
 DBMS_OUTPUT.PUT_LINE(V_result);
+
+
+
 END;
 SET ECHO ON
 SET VARIFY ON
@@ -222,3 +225,25 @@ Dbms_output.put_line (TO_CHAR(NVL (v_salary,0)*(1+NVL (V_bonus,0)/10)));
 END;
 SET VARIFY ON
 SET SERVEROUTPUT OFF 
+
+                           
+                           
+                           Practice : 03
+                         
+                    Interacting With the oracle Server
+                            
+1. Create a PL/SQL block that selects the maximum department number in 
+the DEPARTMENTS table and stores it in an iSQL*Plus variable. Print the 
+result to the screen. Save your PL/SQL block in a file named plsql.sql. by 
+clicking the save script button.
+
+Answer
+VARIABLE g_max_deptno NUMBER
+DECLARE 
+v_max_deptno NUMBER;
+BEGIN 
+SELECT max(department_id)
+INTO v_max_deptno
+FROM departments;
+:g_max_deptno := v_max_deptno;
+END;

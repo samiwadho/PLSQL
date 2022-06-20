@@ -436,3 +436,13 @@ v_bonus := v_sal *v_bonus_per;
 DBMS_OUTPUT.PUT_LINE('The bonus for the employees with employee_id 
 '||v_empno||'and salary'||v_sal ||' is'||v_bonus);
 END;
+
+
+Q3. Create an EMP table that is a replica of the EMPLOYEES table. You 
+can do this by executing the script lad04_3.sql. add a new column 
+STARTS of VARcHAR2 data type and the length of 50 to the EMP table 
+for sorting asterisk (*).
+
+Answer ALTER TABLE emp
+ADD stars VARCHAR(50);
+

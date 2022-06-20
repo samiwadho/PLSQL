@@ -353,3 +353,36 @@ c. Test the PL/SQL block .
 SELECT *
 FROM departments
 WHERE department_id=280;
+
+
+                                     
+                                     Practice 04
+                                   
+                                  Writing Control Structures
+
+
+Q1. Execute the command in the file lab04.sql to create the MESSAGES 
+tables. Write a PL/SQL block to insert number into the MESSAGES 
+table.
+
+CREATE TABLE message (results VARCHAR(60));
+
+a. Insert the numbers 1 to 10 excluding 6 and 8 .
+
+b. Commit before the end of the block.
+BEGIN 
+FOR I in 1..10 LOOP 
+IF I=6 OR I=8 ThEN
+NULL;
+ELSE
+INSERT INTO message (results)
+VALUES(i);
+END IF;
+COMMIT;
+END LOOP;
+END;
+c. Select from the MESSAGES table to verify that your PL/SQL block 
+worked.
+
+SELECT *
+FROM message;

@@ -446,3 +446,57 @@ for sorting asterisk (*).
 Answer ALTER TABLE emp
 ADD stars VARCHAR(50);
 
+Q4. Create a PL/SQL block that rewards an employee by appending an 
+asterisk in the STARS column for every $1,000 of the employee’s 
+salary.
+
+a. Use DEFINE command to provide the employee ID. Pass the value 
+to the PL/SQL block through isql*plus substitution variable.
+DEFINE p_empno=104
+
+b. Initialize a v_asterisk variable that contains a Null.
+
+c. Append an asterisk to the string for every $1000 of the salary 
+amount. For example if the employee has a salary amount of 
+$8000 the string of asterisk should be contain eight asterisk. If the 
+employee has a salary amount of $12500 the string of asterisk 
+should be contain 13 asterisks.
+
+d. Update the STARS column for the employee with the string of 
+asterisk.
+
+e. Commit.
+
+f. Test the for the following values.
+
+Answer
+
+DEFINE p_empno=174
+DEFINE p_empno=176
+SET VERIFY OFF
+DEFINE p_empno=174
+DECLARE
+v_empemp.employee_id%TYPE :=TO_NUMBER(&p_empno);
+v_asteriskemp.stars%TYPE :=NULL;
+v_salemp.salary%TYPE;
+BEGIN
+SELECT NVL(ROUND(salary/1000),0)
+INTO v_sal
+FROM 
+emp
+WHERE employee_id =v_empno;
+FOR I IN 1..v_sal LOOP
+v_asterisk :=v_asterisk || '*';
+END LOOP;
+UPDATE emp
+SET stars =v_asterisk
+WHERE employee_id =v_empno;
+COMMIT;
+END;
+SET VERIFY ON
+g. Display the rows from the EMP table to verify whether your 
+PL/SQL block has executed successfully.
+SELECT id,salary , stars
+FROM emp
+WHERE id=174;
+

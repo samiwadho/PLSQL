@@ -529,3 +529,25 @@ END;
 SET SERVEROUTPUT OFF
 d. Execute and test the Pl/SQL block for the countries with the IDs CA, DE, 
 Uk, US.
+
+
+Q2. Create a PL/SQL block to retrieve the name of each department from the 
+DEPARTMENTS table and print each department name on the screen, 
+incorporating an INDEX BY table.
+
+a. Declare an INDEX BY table, MT_DEPT_TABLE to temporary store the 
+name of the departments.
+
+b. Using a loop, retrieve the name of all departments currently in the 
+DEPARTMENTS table and store them in the INDEX BY table. Use the 
+following table to assign the values for DEPARTMENT_ID based on 
+the value of the counter used in the loop
+    
+        COUNTER             DEPARTMENT_ID
+            1                    10
+            2                    20
+            3                    50
+            4                    60
+            5                    80
+            6                    90
+            7                    110

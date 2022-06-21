@@ -505,13 +505,18 @@ WHERE id=174;
             Working With Composite Data Types
 
             
-1. Write a PL/SQL block to print information about a given country
+Q1. Write a PL/SQL block to print information about a given country
+
 a. Declare a PL/SQL record based on the structure of the COUNTRIES table.
+
 b. Use the DEFINE command to provide the country ID. Pass the values to 
 the PL/SQL block through aisql*Plus substitution variable.
+
 c. Use DBMS_OUTPUT.PUT_LINE to print selected information about the 
 country. A sample output is shown below.
 Country Id: CA Country Name : Canada Region :2
+
+Answer
 SET SERVEROUTPUT ON 
 SET VERIFY OFF
 DEFINE p_countryid = CA
@@ -551,3 +556,5 @@ the value of the counter used in the loop
             5                    80
             6                    90
             7                    110
+            
+       

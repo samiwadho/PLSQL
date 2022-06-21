@@ -594,3 +594,28 @@ END LOOP;
 END;
 SET SERVEROUTPUT OFF
        
+Q3. Modify the block you created in practice 2 to retrieve all information 
+about each department from the departments table and print the 
+information to the screen incorporating in INDEX BY table of record.
+
+a. Declare an INDEX BY table, MY_DEPT_TABLE, to temporaritly to store 
+the number, name and location of all the departments
+
+b. Using a loop, retrieve all department information currently in the 
+DEPARTMENTS table and store it in the INDEX BY table. Use the 
+following table to assign the values for DEPARTMENT_ID based on the 
+value of the counter used in the loop. Exit the loop when then counter 
+reaches the value 7.
+
+      COUNTER          DEPARTMENT_ID
+          1                10
+          2                20
+          3                50
+          4                60
+          5                80
+          6                90
+          7                110
+          
+c. Using another loop, retrieve the department information from the 
+INDEX BY table and print it to the screen, using 
+DBMS_OUTPUT.PUT_LINE

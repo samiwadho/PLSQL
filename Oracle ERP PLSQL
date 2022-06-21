@@ -500,3 +500,6 @@ SELECT id,salary , stars
 FROM emp
 WHERE id=174;
 
+                   Practice: 05
+          
+            Working With Composite Data Types

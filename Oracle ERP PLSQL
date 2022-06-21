@@ -556,5 +556,41 @@ the value of the counter used in the loop
             5                    80
             6                    90
             7                    110
-            
+           
+Answer
+SET SERVEROUTPUT ON
+DECLARE
+TYPE DEPT_TABLE_TYPE IS table of departments.department_name%TYPE 
+INDEX BY BINARY_INTEGER;
+my_dept_tabledept_table_type;
+v_count NUMBER(2);
+v_deptnodepartments.department_id%TYPE;
+BEGIN
+SELECT COUNT(*) INTO v_count FROM departments;
+FOR I IN 1..v_count
+LOOP
+IF I=1 THEN
+v_deptno:=10;
+ELSIF 1=2 THEN
+v_deptno:=20;
+ELSIF I=3 THEN
+v_deptno:=50;
+ELSIF I=4 THEN
+v_deptno:=60;
+ELSIF 1=5 THEN
+v_deptno:=80;
+ELSIF I=6 THEN
+v_deptno:=90;
+ELSIF I=7 THEN
+v_deptno:=110;
+END IF;
+SELECT department_name INTO my_dept_table(I) FROM departments 
+WHERE department_id = v_deptno;
+END LOOP;
+FOR I IN 1..v_count
+LOOP
+DBMS_OUTPUT.PUT_LINE(my_dept_table(I));
+END LOOP;
+END;
+SET SERVEROUTPUT OFF
        

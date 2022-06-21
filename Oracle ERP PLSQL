@@ -619,3 +619,44 @@ reaches the value 7.
 c. Using another loop, retrieve the department information from the 
 INDEX BY table and print it to the screen, using 
 DBMS_OUTPUT.PUT_LINE
+
+Answer
+SET SERVEROUTPUT ON
+DECLARE
+TYPE DEPT_TABLE_TYPE IS table of departments%ROWTYPE INDEX 
+BY BINARY_INTEGER;
+my_dept_tabledept_table_type;
+v_deptnodepartments.department_id%TYPE;
+v_count NUMBER :=7;
+BEGIN
+SELECT COUNT(*) INTO v_count FROM departments;
+FOR I IN 1..v_count
+LOOP
+IF I=1 THEN
+v_deptno:=10;
+ELSIF 1=2 THEN
+v_deptno:=20;
+ELSIF I=3 THEN
+v_deptno:=50;
+ELSIF I=4 THEN
+v_deptno:=60;
+ELSIF 1=5 THEN
+v_deptno:=80;
+ELSIF I=6 THEN
+v_deptno:=90;
+ELSIF I=7 THEN
+v_deptno:=110;
+END IF;
+SELECT * 
+INTO my_dept_table(I) FROM departments 
+WHERE department_id = v_deptno;
+END LOOP;
+FOR I IN 1..v_count
+LOOP
+DBMS_OUTPUT.PUT_LINE('Department Number:' || 
+my_dept_table(I).department_id||'Department Name:'|| 
+my_dept_table(I).department_name || 'Manager ID:'|| 
+my_dept_table(I).manager_id|| 'Location Id:'|| 
+my_dept_table(I).location_id);
+END LOOP;
+END;

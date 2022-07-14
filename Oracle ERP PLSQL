@@ -660,3 +660,8 @@ my_dept_table(I).manager_id|| 'Location Id:'||
 my_dept_table(I).location_id);
 END LOOP;
 END;
+    
+                                              Practice:06
+                                        Writing Explicit Cursors
+                                        
+                                        

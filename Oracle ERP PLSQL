@@ -670,3 +670,40 @@ sorting the salaries of the employees.
 
 Answer: CREATE TABLE top_dogs
 (name VARCHAR2(25), salary NUMBER(7));
+
+Q2. Create a PL/SQL block that determines the top employees with respect 
+to salaries.
+
+a. Accept a number n from the user where n represents the number of top 
+n earners from the EMPLOYEES table.
+b. In a loop use the isql*plus substitution parameter created in step 1 and 
+gather the salaries of the top n people from the EMPLOYEES table. There 
+should be no duplication salaries. If two employees earn the same 
+salary, the salary should be picked up only once.
+c. Store the salaries in the TOP_DOGS table.
+d. Test a variety of special cases, such as n=0 or where n is greater than 
+the number of employees in the EMPLOYEES table. Empty the 
+TOP_DOGS table after each case. The output shown represents the five 
+hioghest salaries in the EMPLOYEES table
+
+Answer: DELETE FROM top_dogs;
+DEFINE p_num=5
+DECLARE 
+v_num NUMBER(3) :=&p_num;
+v_salemployees.salary%TYPE;
+CURSOR emp_cursor IS
+SELECT distinct salary 
+FROM employees
+ORDER BY salary DESC;
+BEGIN
+OPEN emp_cursor;
+FETCH emp_cursor INTO v_sal;
+WHILE emp_cursor%ROWCOUNT<=v_num AND emp_cursor%FOUND 
+LOOP
+INSERT INTO top_dogs(salary)
+VALUES(v_sal);
+FETCH emp_cursor INTO v_sal;
+END LOOP;
+ClOSEemp_cursor;
+COMMIT;
+END;

@@ -745,4 +745,36 @@ d. Test the PL/SQL block for the following cases.
                                   Errazuriz NOT Due for a raise
                                   Combrault NOT Due for a raise
                                   
-                                  
+                                 
+Answer: SET SERVEROUTPUT ON
+SET ECHO OFF
+DEFINE p_dept_no =10
+DECLARE
+v_deptno NUMBER(4) :=(&p_dept_no);
+v_enameemployees.last_name%TYPE';
+v_salemployees.salary%TYPE;
+v_manageremployees.manager_id%TYPE;
+CURSOR emp_cursor IS
+SELECT last_name, salary ,manager_id
+FROM employees 
+WHERE department_id =v_deptno;
+BEGIN
+OPEN emp_cursor;
+FETCH emp_cursor INTO v_ename, v_sal, 
+v_manager;
+WHILE emp_cursor%FOUND LOOP
+IF v_sal<5000 AND (v_manager=101 OR 
+v_manager=124) THEN
+DBMS_OUTPUT.PUT_LINE (v_ename || 'Due for a 
+raise');
+ELSE
+DBMS_OUTPUT.PUT_LINE (v_ename || 'NOT Due 
+for a raise');
+END IF;
+FETCH emp_cursor INTO v_ename ,v_sal , 
+v_manager;
+END LOOP;
+CLOSE emp_cursor;
+END;
+SET SERVEROUTPUT OFF
+

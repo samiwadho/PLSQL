@@ -665,3 +665,8 @@ END;
                                         Writing Explicit Cursors
                                         
                                         
+Q1. Run the command in the script lab06_1.sql to create a new table for 
+sorting the salaries of the employees.
+
+Answer: CREATE TABLE top_dogs
+(name VARCHAR2(25), salary NUMBER(7));

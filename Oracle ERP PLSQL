@@ -676,11 +676,14 @@ to salaries.
 
 a. Accept a number n from the user where n represents the number of top 
 n earners from the EMPLOYEES table.
+
 b. In a loop use the isql*plus substitution parameter created in step 1 and 
 gather the salaries of the top n people from the EMPLOYEES table. There 
 should be no duplication salaries. If two employees earn the same 
 salary, the salary should be picked up only once.
+
 c. Store the salaries in the TOP_DOGS table.
+
 d. Test a variety of special cases, such as n=0 or where n is greater than 
 the number of employees in the EMPLOYEES table. Empty the 
 TOP_DOGS table after each case. The output shown represents the five 
@@ -707,3 +710,39 @@ END LOOP;
 ClOSEemp_cursor;
 COMMIT;
 END;
+
+
+Q3. Create a PL/SQL block that does the following
+
+a. Use DEFINE command to provide the department ID. Pass the value 
+to the Pl/SQL block through aisql*Plus substitution variable.
+
+b. In a Pl/SQL block, retrieve the last name, salary, and MANAGER ID of 
+the employees working in that department.
+
+c. If the salary of the employees is less than 5000 and if the manager id 
+id either 101 or 124, display the message <<last name >> Due for a 
+raise. Otherwise, display the message <<last name >> not due for a 
+raise.
+
+d. Test the PL/SQL block for the following cases.
+              
+              DEPARTMENT ID           MESSAGE
+                  10               Whalen Due for a raise
+                  
+                  20               Hartstein Not Due for a raise
+                                   Pay NOT Due for a raise
+                  
+                  50               Weiss NOT Due for a raise
+                                   Fripp Due for a raise
+                                   Kaufling Due for a raise 
+                                   Vollman Due for a raise
+                                   Mourges Due for a raise
+                                   
+                  
+                  80              Russel NOT Due for a raise
+                                  Partners NOT Due for a raise
+                                  Errazuriz NOT Due for a raise
+                                  Combrault NOT Due for a raise
+                                  
+                                  

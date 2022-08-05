@@ -778,3 +778,69 @@ CLOSE emp_cursor;
 END;
 SET SERVEROUTPUT OFF
 
+
+
+                    Practice : 07
+          Advance Explicit Cursor Concepts
+
+
+Q1. In a loop, use a cursor to retrieve the department number and the 
+department name from the DEPARTMENTS table for those departments 
+whose DEPARTMENT_ID is less than 100. Pass the department number 
+to another cursor to retrieve from the EMPLOYEES table the details of 
+employee last name, job, hire date, and salary of those employees 
+whose EMPLOYEE_ID is less than 120 and who work in that department.
+
+
+Answer:
+
+SET SERVEROUTPUT ON 
+DECLARE 
+CURSOR dept_cursor IS 
+SELECT department_id, department_name
+FROM departments 
+WHERE department_id<100
+ORDER BY department_id;
+CURSOR emp_cursor(v_deptno NUMBER) IS 
+SELECT last_name, job_id, hire_date, salary
+FROM employees
+WHERE department_id=v_deptno
+AND employee_id<120;
+v_current_deptnodepartments.department_id%TYPE;
+v_current_dnamedepartments.department_name%TYPE;
+v_enameemployees.last_name%TYPE;
+v_jobemployees.job_id%TYPE;
+v_hiredateemployees.hire_date%TYPE;
+v_salemployees.salary%TYPE;
+v_linevarchar2(100);
+BEGIN
+v_line :=' ' ;
+OPEN dept_cursor;
+LOOP
+FETCH dept_cursor INTO 
+v_current_deptno, v_current_dname;
+EXIT WHEN dept_cursor%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE('Department Number:'|| 
+v_current_deptno|| 'Department Name'|| v_current_dname);
+DBMS_OUTPUT.PUT_LINE(v_line);
+IF emp_cursor%ISOPEN THEN 
+CLOSE emp_cursor;
+END IF;
+OPEN emp_cursor (v_current_deptno);
+LOOP
+FETCH emp_cursor INTO 
+v_ename, v_job, v_hiredate, v_sal;
+EXIT WHEN emp_cursor%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(v_ename||' '|| v_job || ' ' || 
+v_hiredate || ' ' || v_sal);
+END LOOP;
+IF emp_cursor%ISOPEN THEN
+CLOSE emp_cursor;
+END IF;
+DBMS_OUTPUT.PUT_LINE(v_line);
+END LOOP;
+IF emp_cursor%ISOPEN THEN
+CLOSE emp_cursor;
+END IF;
+CLOSE dept_cursor;
+END;

@@ -973,3 +973,53 @@ END;
 SET VERIFY ON
 PRINT g_message
 
+Q3. Write a PL/SQL block that prints the number of employees who earns 
+plus or minus $100 of the salary value set for an isql*Plus substitution 
+variable. Use the DEFINE command to provide the salary. Pass the value 
+to the PL/SQL block through a isql*Plus substitution variable.
+
+a. If there is no employee within that salary range, print a message to 
+the user including that is the case. Use exception for this case.
+
+b. If there are one or more employees within that range, the message 
+should indicate how many employees are in that salary range.
+
+c. Handle any other exception with an appropriate handler. The 
+message should indicate that some other error occurred.
+
+Answer:
+VARIABLE g_messageVARCHAR2(100)
+SET VERIFY OFF
+DEFINE p_sal =700
+DECLARE 
+v_salemployees.salary%TYPE :=&p_sal;
+v_low_salemployees.salary%TYPE :=&p_sal - 100;
+v_high_salemployees.salary%TYPE :=&p_sal + 100;
+v_no_emp NUMBER(7);
+e_no_emp_returned EXCEPTION;
+e_more_than_one_emp EXCEPTION;
+BEGIN
+SELECT count(last_name)
+INTO v_no_emp
+FROM employees
+WHERE salary between v_low_sal AND v_high_sal;
+IF v_no_emp =0 THEN 
+RAISE e_no_emp_returned;
+ELSIF v_no_emp>0 THEN 
+RAISE e_more_than_one_emp;
+END IF;
+EXCEPTION
+WHEN e_no_emp_returned THEN 
+:g_message := 'There is no employee salary between'|| 
+TO_CHAR(v_low_sal) || 'and' ||TO_CHAR(v_high_sal);
+WHEN e_more_than_one_emp THEN
+:g_message:='there is /are ' || TO_CHAR(v_no_emp)|| 
+'employee(s) with a salary between'|| 
+TO_CHAR(v_low_sal) || 'and'||TO_CHAR(v_high_sal);
+WHEN others THEN
+:g_message:= 'Some other error occurred .';
+END;
+/
+SET VERIFY ON 
+PRINT g_message
+

@@ -844,3 +844,41 @@ CLOSE emp_cursor;
 END IF;
 CLOSE dept_cursor;
 END;
+
+
+Q2.  Modify the code in sol04.sql to incorporate a cursor using the FOR 
+UPDATE and WHERE CURRENT OF functionality in cursor processing.
+
+
+Answer:
+SET VERIFY OFF
+DEFINE p_empno =104
+DECLARE 
+v_empnoemp.id%TYPE :=&p_empno;
+v_asteriskemp.stars%TYPE :=NULL;
+CURSOR emp_cursor IS 
+SELECT id, NVL(ROUND(salary/1000),0) sal
+FROM emp
+WHERE id=v_empno
+FOR UPDATE;
+BEGIN
+FOR emp_record IN emp_cursor LOOP
+FOR I IN 1..emp_record.sal LOOP
+v_asterisk :=v_asterisk || '*';
+DBMS_OUTPUT.PUT_LINE(v_asterisk);
+END LOOP;
+UPDATE emp
+SET stars =v_asterisk
+WHERE CURRENT OF emp_cursor;
+v_asterisk :=NULL;
+END LOOP;
+COMMIT;
+END;
+
+
+SET VERIFY ON
+Execute the following command to check if your PL/SQL block has 
+worked successfully;
+SELECT id, salary, stars
+FROM emp
+WHERE id IN(176,174,104);

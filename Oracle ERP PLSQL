@@ -937,3 +937,39 @@ VALUES('Some other error occured');
 END;
 SET VERIFY ON
 
+Q2. Modify the code plsql3.sql to add an exception handler.
+
+a. Use DEFINE command to provide the department ID and department 
+location. Pass the values to the PL/SQL block through aisql*Plus 
+substitution variable. 
+
+b. Write an exception handler for the error to pass a message to the user 
+that the specified department does not exist. Use a bind variable to pass 
+the message to the user.
+
+c. Execute the PL/SQL block by entering a department that does not exist.
+
+Answer:
+SET VERIFY OFF 
+VARIABLE g_messageVARCHAR2(100)
+DEFINE p_deptno =200
+DEFINE p_loc =1400
+DECLARE e_invalid_dept EXCEPTION;
+v_deptnodepartments.department_id %TYPE :=&p_deptno;
+BEGIN
+UPDATE departments
+SET location_id =&p_loc
+WHERE department_id =&p_deptno;
+COMMIT;
+IF SQL%NOTFOUND THEN
+raisee_invalild_dept;
+END IF;
+EXCEPTION 
+WHEN e_invalid_dept THEN 
+:g_message := 'Department'|| TO_CHAR(v_deptno) || 'is an invalid 
+department';
+END;
+/
+SET VERIFY ON
+PRINT g_message
+

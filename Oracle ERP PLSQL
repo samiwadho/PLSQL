@@ -1057,3 +1057,31 @@ title of Stock Manager. What happens and WHhy?
 EXECUTE add_job (‘ST_MAN’,’Stock Manager’)
 There is a primary key integrity constraint on the JOB_ID column.
 
+2. Create a procedure called UPD_JOB to modify a job in the JOBS table.
+
+a. Create a procedure called UPD_JOB to update the job title. Provide 
+the job ID and a new title, using two parameters, include the 
+necessary exception handling if no update occurs.
+
+CREATE OR REPLACE PROCEDURE upd_job
+(p_jobid IN jobs.job_id%TYPE, p_jobtitle IN jobs.job_title%TYPE)
+IS 
+BEGIN
+UPDATE jobs
+SET job_title= p_jobtitle
+WHERE job_id=p_jobid;
+IF SQL%NOTFOUND THEN
+RAISE_APPLICATION_ERROR(-20202,’No job updated’);
+END IF;
+END upd_job;
+
+b. Compile the code, and invoke the procedure with IT_DBA as job ID 
+and Database Administrator as job title Query the JOBS table to view 
+the result.
+EXECUTE upd_job(' IT_DBA', 'Data Administrator')
+SELECT 8 FROM jobs WHERE job_id = 'IT_DBA';
+Also, check the exception handling by trying to delete a job that does 
+not exist (use job ID IT_WEB). You should get the message you used 
+in the exception-handling section of the procedure as output.
+EXECUTE upd_job(‘IT_WEB’,’WEB MASTER’)
+

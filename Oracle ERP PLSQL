@@ -1029,14 +1029,14 @@ PRINT g_message
                           
                           
                           
-1. Create and invoke the ADD_JOB procedure and consider the result.
+Q1. Create and invoke the ADD_JOB procedure and consider the result.
 a. Create a procedure called ADD_JOBS to insert a new job into the 
 JOBS table. Provide the ID and title of the job, using two parameters
 CREATE OR REPLACE PROCEDURE up_job
-
 (p_job IN jobs.job_id%TYPE, p_jobtitle IN jobs.job_title%TYPE)
 IS 
 
+Answer:
 BEGIN
 UPDATE jobs
 SET job_title = p_jobtitle
@@ -1057,12 +1057,13 @@ title of Stock Manager. What happens and WHhy?
 EXECUTE add_job (‘ST_MAN’,’Stock Manager’)
 There is a primary key integrity constraint on the JOB_ID column.
 
-2. Create a procedure called UPD_JOB to modify a job in the JOBS table.
+Q2. Create a procedure called UPD_JOB to modify a job in the JOBS table.
 
 a. Create a procedure called UPD_JOB to update the job title. Provide 
 the job ID and a new title, using two parameters, include the 
 necessary exception handling if no update occurs.
 
+Answer:
 CREATE OR REPLACE PROCEDURE upd_job
 (p_jobid IN jobs.job_id%TYPE, p_jobtitle IN jobs.job_title%TYPE)
 IS 
@@ -1085,12 +1086,13 @@ not exist (use job ID IT_WEB). You should get the message you used
 in the exception-handling section of the procedure as output.
 EXECUTE upd_job(‘IT_WEB’,’WEB MASTER’)
 
-3. Create a procedure called DEL_JOB to delete a job from the JOBS table.
+Q3. Create a procedure called DEL_JOB to delete a job from the JOBS table.
 
 a. Create a procedure called DEL_JOB to delete a job from JOBS table, 
 include the necessary exception handling if no job is deleted.
 CREATE OR REPLACE PROCEDURE upd_job
 (p_jobid IN jobs.job_id%TYPE)
+Answer:
 IS 
 BEGIN
 DELETE FROM jobs
@@ -1109,3 +1111,37 @@ not exist (use job ID IT_WEB). You should get the message you used
 in the exception-handling section of the procedure as output.
 EXECUTE del_job(‘IT_WEB’)
 
+Q4. Create a procedure called QUERY_EMP to query the EMPLOYEES table, 
+retrieving the salary and job ID for an employee when provided with the 
+employee number.
+
+Answer:
+a. Create a procedure that returns a value from the SALARY and JOB_ID 
+columns for a specified employee ID.
+Use host variable for the two OUT parameters salary and job ID.
+CREATE OR REPLACE PROCEDURE query_emp
+(p_empid IN employees.employee_id%TYPE,
+p_sal OUT employees.salary%TYPE ,
+p_job OUT employees.job_id%TYPE)
+IS 
+BEGIN
+SELECT salary ,job_id
+INTO p_sal, p_job
+FROM employees
+WHERE employee_id=p_empid;
+END query_emp;
+
+b. Complie the code, invoke the procedure to display the salary and job 
+ID for employee ID 120.
+VARIABLE g_sal NUMBER
+VARIABLE g_jobVARCHAR2(15)
+EXECUTE query_emp (120,:g_sal,:g_job)
+PRINT g_sal
+PRINT g_job
+
+c. Invoke the procedure again, passing an EMPLOYEE_ID of 300. What 
+happens and why?
+EXECUTE query_emp(300,:g_sal,:g_job)
+There is no employee in the EMPLOYEES table with an 
+EMPLOYEE_ID of 300. The SELECT statement retrieved no data from 
+the database, resulting in a final PL/SQL error, NO_DATA_FOUND.

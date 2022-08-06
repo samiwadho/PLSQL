@@ -1145,3 +1145,30 @@ EXECUTE query_emp(300,:g_sal,:g_job)
 There is no employee in the EMPLOYEES table with an 
 EMPLOYEE_ID of 300. The SELECT statement retrieved no data from 
 the database, resulting in a final PL/SQL error, NO_DATA_FOUND.
+
+
+                      Practice NO:10
+                     CREATING FUNCTIONS
+
+Q1. Create and invoke the Q_JOB function to return a job title.
+
+Answer:
+a. Create a function called Q-JOB to return a job title to a host variable.
+CREATE OR REPLACE FUNCTION q_job
+(p_jobid IN jobs.jobs_id%TYPE)
+RETURN VARCHAR2
+IS 
+v_jobtitlejob.job_title%TYPE;
+BEGIN
+SELECT job_title
+INTO v_jobtitle
+FROM jobs
+WHERE job_id =p_jobid;
+RETURN (v_jobtitle);
+END q_job;
+
+b. Compile the code; create a host variable G_TITLE and invoke the 
+function with job SA_REP. Query the host variable to view the result.
+VARIABLE g_titleVARCHAR2(30)
+EXECUTE :g_title :=q_job(‘SA_REP’)
+PRINT g_title

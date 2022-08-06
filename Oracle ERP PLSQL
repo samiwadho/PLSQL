@@ -1085,3 +1085,27 @@ not exist (use job ID IT_WEB). You should get the message you used
 in the exception-handling section of the procedure as output.
 EXECUTE upd_job(‘IT_WEB’,’WEB MASTER’)
 
+3. Create a procedure called DEL_JOB to delete a job from the JOBS table.
+
+a. Create a procedure called DEL_JOB to delete a job from JOBS table, 
+include the necessary exception handling if no job is deleted.
+CREATE OR REPLACE PROCEDURE upd_job
+(p_jobid IN jobs.job_id%TYPE)
+IS 
+BEGIN
+DELETE FROM jobs
+WHERE job_id= p_jobid;
+IF SQL%NOTFOUND THEN
+RAISE_APPLICATION_ERROR(-20202,’No job Deleted’);
+END IF;
+END upd_job;
+
+b. Compile the code; invoke the procedure using job ID IT_DBA. Query 
+the JOBS table to view the results.
+EXECUTE del_job(‘IT_DBA’)
+SELEC T* FROM jobs WHERE job_id=’IT_DBA’;
+Also, check the exception handling by trying to delete a job that does 
+not exist (use job ID IT_WEB). You should get the message you used 
+in the exception-handling section of the procedure as output.
+EXECUTE del_job(‘IT_WEB’)
+

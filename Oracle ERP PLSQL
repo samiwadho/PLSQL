@@ -1172,3 +1172,31 @@ function with job SA_REP. Query the host variable to view the result.
 VARIABLE g_titleVARCHAR2(30)
 EXECUTE :g_title :=q_job(‘SA_REP’)
 PRINT g_title
+
+Q2. Create a function called ANNUAL_COMP to return the annual salary by 
+accepting two parameters: an employee’s monthly salary and 
+commission. The function should address NULL values.
+
+Answer:
+a. Create a invoke the function the function ANNUAL_COMP, passing in 
+values for monthly salary and commission. Either or both values 
+passed can be NULL, but the function should still return an annual 
+salary, which is not NULL. The annual salary is defined by the basic 
+formula
+(sal*12)+(commission_pct*salary*12)
+CREATE OR REPLACE FUNCTION annual_comp
+(p_sal INemployees.salary%TYPE,
+p_comm IN employees.commission_pct%TYPE)
+RETURN NUMBER
+IS 
+BEGIN
+RETURN (NVL (p_sal,0)*12+(NVL(p_comm,0)*p_sal*12));
+END annual_comp;
+/
+
+b. Use the function in a SELECT against the EMPLOYEES table for 
+department 80.
+SELECT employee_id,last_name,
+Annual_comp(salary,commission_pct) “Annual Compensation”
+FROM employees
+WHERE department_id=80;

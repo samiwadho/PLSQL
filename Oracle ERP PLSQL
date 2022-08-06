@@ -1200,3 +1200,73 @@ SELECT employee_id,last_name,
 Annual_comp(salary,commission_pct) “Annual Compensation”
 FROM employees
 WHERE department_id=80;
+
+Q3. Create a procedure, NEW_EMP, to insert a new employee into the 
+EMPLOYEES table. The procedure should contain a call to the 
+VALID_DEPTID function to check whether the department ID specified 
+for the new employee exists in the DEPARTMENTS table.
+
+Answer:
+a. Create a function VALID_DEPTID to validate a specified department 
+ID. The function should return a BOOLEAN value.
+CREATE OR REPLACE FUNCTION valid_deptid
+(p_deptid IN departmetns.depatment_id%TYPE)
+RETURN BOOLEAn
+IS 
+v_dummy VARCHAR2(1);
+BEGIN
+SELECT 'X'
+INTO v_dummy
+FROM departments
+WHERE department_id = p_deptid;
+RETURN (TRUE);
+EXCEPTION
+WHEN NO_DATA_FOUND THEN 
+RETURN (FALSE);
+END valid_deptid;
+
+
+
+b. Create the procedure NEW_EMP to add an employee to the 
+EMPLOYEES table. A new row should be added to EMPLOYEES if the 
+function returns TRUE. If the function returns FALSE, the procedure 
+should alert the user with an appropriate message.
+Defien DEFAUL values for most parameters. The default commission 
+is 0, the default salary is 1000, the defaualt department ID is 30, the 
+default job is SA_REP and the default manager number is 145 for the 
+employee’s ID number, use the sequence EMPLOYEE_SEQ.
+Provide the last name, first name and e-mail for the employee.
+
+CREATE OR REPLACE PROCEDURE new_emp
+(p_lnameemployees.last_name%TYPE,
+p_fnameemployees.first_name%TYPE,
+p_emailemployees.email%TYPE,
+p_jobemployees.job_id%TYPE DEFAULT ' SA_REP',
+p_mgremployees.manager_id%TYPE DEFAULT 145,
+p_salemployees.salary%TYPE DEFAULT 1000,
+p_commemployees.commission_pct%TYPE DEFAULT 0,
+p_depidemployees.department_id%TYPE DEFAULT 30)
+IS
+IF valid_deptid(p_depid) THEN
+INSERT INTO employees 
+(employee_id,last_name,first_name,email,job_id,manager_id,hire_
+date,salary,commission_pct,depatment_id)
+VALUES(employees_seq.NEXTVAL,p_lname,p_fname,p_email,p_job
+,p_mgr,TRUNC(SYSDATE,'DD'),p_sal,p_comm,p_deptid);
+ELSE
+RAISE_APPLICATION_ERROR(-20202,'Invalid department ID try 
+again');
+END IF;
+END new_emp;
+
+
+c. Test your NEW_EMP procedure by adding a new employee named 
+Jane Harris to department 15. Allow all other parameters to default. 
+What was the result?
+EXECUTE new_emp (p_lname=>’ Harris‘, p_fname=>’Jane’ 
+p_email=>’HAHARRIS’,p_deptid=15)
+d. Test your NEW_EMP procedure by adding an new employee named 
+Joe Harris to department 80. All other parametes to default. What 
+was the result?
+EXECUTE new_emp (p_lname=>’ Harris‘, p_fname=>’Jane’ 
+p_email=>’HAHARRIS’,p_deptid=80)
